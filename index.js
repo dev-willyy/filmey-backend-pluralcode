@@ -5,6 +5,8 @@ import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
+import swaggerDoc from 'swagger-ui-express';
+import swaggerDocumentation from './helpers/documentation.js';
 import { authRouter } from './routes/auth.js';
 import { userRouter } from './routes/users.js';
 
@@ -16,6 +18,10 @@ dotenv.config();
 app.use(cookieParser());
 app.use(express.json());
 app.use(cors());
+
+// Api documentation with Swagger
+app.use('/documentations', swaggerDoc.serve);
+app.use('/documentations', swaggerDoc.setup(swaggerDocumentation));
 
 // Connect to Database
 async function connectDB() {
