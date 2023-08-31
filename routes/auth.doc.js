@@ -1,6 +1,6 @@
 const registerUser = {
   tags: ['Auth'],
-  summary: 'register a new subscriber/user',
+  summary: 'Register a new subscriber/user',
   description: 'Create a new Subscriber/User',
   requestBody: {
     content: {
@@ -14,6 +14,7 @@ const registerUser = {
             username: 'johndoe',
             email: 'johndoe@example.com',
             password: 'newSubscriber001',
+            isAdmin: true,
           },
         },
       },
