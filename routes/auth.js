@@ -1,12 +1,11 @@
 import express from 'express';
-import { registerUser } from '../controllers/authController.js';
+import { registerUser, loginUser, logoutUser } from '../controllers/authController.js';
+import { authenticateUser } from '../middlewares/authenticateUser.js';
 
 const router = express.Router();
 
-// Implement middlewares after the APIs are completed
 router.post('/register', registerUser);
-router.post('/login', registerUser);
-router.post('/logout', registerUser);
+router.post('/login', loginUser);
+router.post('/logout', authenticateUser, logoutUser);
 
 export { router as authRouter };
-

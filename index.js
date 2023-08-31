@@ -4,14 +4,17 @@ import express from 'express';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 import { authRouter } from './routes/auth.js';
+import { userRouter } from './routes/users.js';
 
 const app = express();
 const port = process.env.port || 3003;
 
 // defaults
 dotenv.config();
-express.json();
+app.use(cookieParser());
+app.use(express.json());
 app.use(cors());
 
 // Connect to Database
@@ -23,7 +26,6 @@ async function connectDB() {
     });
     console.log('MongoDB connected');
   } catch (err) {
-    // throw err;
     throw new Error(err);
   }
 }
@@ -33,9 +35,21 @@ mongoose.connection.on('disconnected', () => {
   console.log('Connection has broken');
 });
 
-app.use('/pluraltask', authRouter);
-app.use('/pluraltask', authRouter);
-app.use('/pluraltask', authRouter);
+app.use('/api/pluraltask', authRouter);
+app.use('/api/pluraltask/users', userRouter);
+
+// Error stack for server: takes the return value of the createError function as params
+app.use((err, req, res, next) => {
+  const errorStatus = err.status || 500;
+  const errorMessage = err.message || 'Something went wrong with server';
+
+  return res.status(errorStatus).json({
+    success: false,
+    status: errorStatus,
+    message: errorMessage,
+    stack: err.stack,
+  });
+});
 
 app.get('/', (req, res) => {
   res.send('This is the Home Route');

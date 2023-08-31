@@ -1,0 +1,32 @@
+GET http://localhost:3003/api/pluraltask/users
+Content-Type: application/json
+# get all users
+
+
+POST http://localhost:3003/api/pluraltask/register
+Content-Type: application/json
+
+{
+	"username": "newuser1",
+	"email": "newuser1@example.com",
+	"password": "secretPassword001"
+}
+# register user
+
+POST http://localhost:3003/api/pluraltask/login
+Content-Type: application/json
+
+{
+	"username": "newuser1",
+	"password": "secretPassword001"
+}
+# login user
+
+POST http://localhost:3003/api/pluraltask/logout
+Content-Type: application/json
+
+{
+	"username": "newuser1",
+	"password": "secretPassword001"
+}
+# login user
